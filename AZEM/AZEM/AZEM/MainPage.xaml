@@ -1,0 +1,40 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:local="clr-namespace:AZEM"
+             x:Class="AZEM.MainPage">
+
+    <StackLayout
+        BackgroundColor="White">
+        
+        <!-- Place new controls here -->
+        <Image Source="azem_lotus.png"
+            Aspect="AspectFill"
+            HeightRequest="200"
+            WidthRequest="200"/>
+        <Entry
+            Placeholder="Email address"
+            BackgroundColor="LightGray"
+            PlaceholderColor="Gray"
+            TextColor="Black"
+            />
+        <Entry
+            Placeholder="Password"
+            BackgroundColor="LightGray"
+            PlaceholderColor="Gray"
+            TextColor="Black"
+            IsPassword="True"
+            />
+        <Button
+            Text="Login"
+            BackgroundColor="White"
+            BorderColor="LightBlue"
+            TextColor="LightBlue"
+            BorderRadius="2"
+            BorderWidth="2"
+            WidthRequest="20"
+            HeightRequest="40"
+            />
+    </StackLayout>
+
+</ContentPage>
