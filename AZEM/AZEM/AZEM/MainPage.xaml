@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             xmlns:local="clr-namespace:AZEM.Renderers;assembly-"
+             xmlns:local="clr-namespace:AZEM"
              x:Class="AZEM.MainPage">
 <!--get the assembly reference correct so that the entry underline will properly render-->
 
@@ -13,20 +13,20 @@
             Aspect="AspectFill"
             HeightRequest="200"
             WidthRequest="200"/>
-        <EntryunderlineRender
+        <local: EntryUnderlineControl
             Placeholder="Email address"
             BackgroundColor="White"
             PlaceholderColor="Gray"
             TextColor="Black"
             />
-        <Entry
+        <Entry:EntryUnderlineRender
             Placeholder="Password"
             BackgroundColor="White"
             PlaceholderColor="Gray"
             TextColor="Black"
             IsPassword="True"
             />
-        <GradientButton
+        <Button
             Text="Login"
             BackgroundColor="White"
             
