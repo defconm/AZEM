@@ -2,6 +2,7 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:local="clr-namespace:AZEM"
+             xmlns:local1="clr-namespace:AZEM.Controls"
              x:Class="AZEM.MainPage">
 <!--get the assembly reference correct so that the entry underline will properly render-->
 
@@ -10,31 +11,65 @@
         
         <!-- Place new controls here -->
         <Image Source="azem_lotus.png"
-            Aspect="AspectFill"
+            Aspect="AspectFit"
+            Margin="10"
             HeightRequest="200"
             WidthRequest="200"/>
-        <local: EntryUnderlineControl
+        <local1:EntryUnderlineControl
             Placeholder="Email address"
             BackgroundColor="White"
             PlaceholderColor="Gray"
+            EntryColor="Blue"
+            Margin="10"
             TextColor="Black"
             />
-        <Entry:EntryUnderlineRender
+        <local1:EntryUnderlineControl
             Placeholder="Password"
             BackgroundColor="White"
+            Margin="10"
             PlaceholderColor="Gray"
             TextColor="Black"
+            EntryColor="Blue"
             IsPassword="True"
             />
+        <StackLayout
+            BackgroundColor="White"
+            Orientation="Horizontal">
+            <Label
+                Text="Forgot Password?"
+                Margin="15,-10,0,0"
+                TextColor="LightBlue"
+                />
+            <Label
+                Text="Keep me logged in"
+                TextColor="Black"
+                HorizontalOptions="EndAndExpand"
+                Margin="0,-10,10,0"
+                FontSize="10"
+                />
+            <!--Create Custom switch renderer so that i will have a better looking switch on the login screen-->
+            <Switch
+                HeightRequest="10"
+                />
+        </StackLayout>
         <Button
             Text="Login"
             BackgroundColor="White"
-            
             TextColor="LightBlue"
             BorderRadius="2"
+            BorderColor="LightBlue"
             BorderWidth="2"
+            Margin="10,25,10,0"
             WidthRequest="20"
             HeightRequest="40"
+            />
+        <Button
+            Text="Sign Up"
+            BackgroundColor="LightBlue"
+            TextColor="White"
+            Margin="10,5,10,10"
+            HeightRequest="42"
+            BorderRadius="2"
             />
     </StackLayout>
 

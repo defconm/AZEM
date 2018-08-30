@@ -1,11 +1,13 @@
 ﻿using System;
 using CoreAnimation;
 using CoreGraphics;
+using FFImageLoading;
 using UIKit;
 using Xamarin.Forms;
 using Xamarin.Forms.Platform.iOS;
 using AZEM.Controls;
 using AZEM.iOS.Renderers;
+using System.ComponentModel;
 
 [assembly: ExportRenderer(typeof(EntryUnderlineControl), typeof(EntryUnderline))]
 namespace AZEM.iOS.Renderers 
@@ -65,8 +67,8 @@ namespace AZEM.iOS.Renderers
                         formControl.Icon = formControl.Icon + ".png";
 
                     imgView = new UIImageView(new CGRect(0, 0, (iconHeight), (iconHeight)));
-                    imgView.Image = new UIImage(formControl.Icon).ChangeImageColor(formControl.PlaceholderColor.ToUIColor());
-
+                    //imgView.Image = new UIImage(formControl.Icon).ChangeImageColor(formControl.PlaceholderColor.ToUIColor());
+                    
                     Resize(imgView, fontSize, fontSize);
 
                     var paddingView = new UIView(new CGRect(0, 0, (iconHeight + 4), (iconHeight + iconPadding)));
@@ -83,7 +85,7 @@ namespace AZEM.iOS.Renderers
                    )
                 {
                     imgView = new UIImageView(new CGRect(0, 0, (passwordIconHeight + 10), (passwordIconHeight + 10)));
-                    imgView.Image = new UIImage(formControl.PasswordRevealIcon).ChangeImageColor(formControl.EntryColor.ToUIColor());
+                    //imgView.Image = new UIImage(formControl.PasswordRevealIcon).ChangeImageColor(formControl.EntryColor.ToUIColor());
 
                     Resize(imgView, passwordIconHeight + passwordIconPaddingWidth, passwordIconHeight);
 
@@ -96,7 +98,7 @@ namespace AZEM.iOS.Renderers
                     {
                         formControl.IsPassword = !formControl.IsPassword;
                         var fileName = formControl.IsPassword ? formControl.PasswordRevealIcon : formControl.PasswordHideIcon;
-                        imgView.Image = new UIImage(fileName).ChangeImageColor(formControl.EntryColor.ToUIColor());
+                        //imgView.Image = new UIImage(fileName).ChangeImageColor(formControl.EntryColor.ToUIColor());
                     };
                     paddingView.AddSubview(btn);
                     ctrl.RightViewMode = UITextFieldViewMode.Always;
@@ -151,7 +153,7 @@ namespace AZEM.iOS.Renderers
 
             if (e.PropertyName == EntryUnderlineControl.PlaceholderColorProperty.PropertyName)
             {
-                imgView.Image = new UIImage(formControl.Icon).ChangeImageColor(formControl.PlaceholderColor.ToUIColor());
+                //imgView.Image = new UIImage(formControl.Icon).ChangeImageColor(formControl.PlaceholderColor.ToUIColor());
             }
 
             if (e.PropertyName == EntryUnderlineControl.ReturnKeyTypeProperty.PropertyName)
@@ -234,9 +236,9 @@ namespace AZEM.iOS.Renderers
     }
     public static class EnumExtensions
     {
-        public static ImeAction GetValueFromDescription(this ReturnKeyTypes value)
+        public static UIReturnKeyType GetValueFromDescription(this ReturnKeyTypes value)
         {
-            var type = typeof(ImeAction);
+            var type = typeof(UIReturnKeyType);
             if (!type.IsEnum) throw new InvalidOperationException();
             foreach (var field in type.GetFields())
             {
@@ -245,12 +247,12 @@ namespace AZEM.iOS.Renderers
                 if (attribute != null)
                 {
                     if (attribute.Description == value.ToString())
-                        return (ImeAction)field.GetValue(null);
+                        return (UIReturnKeyType)field.GetValue(null);
                 }
                 else
                 {
                     if (field.Name == value.ToString())
-                        return (ImeAction)field.GetValue(null);
+                        return (UIReturnKeyType)field.GetValue(null);
                 }
             }
             throw new NotSupportedException($"Not supported on Android: {value}");
