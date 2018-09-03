@@ -7,12 +7,12 @@ using Xamarin.Forms;
 
 namespace AZEM.Behaviors
 {
-    class LoginBehaviors : Behavior<Entry>
+    class LoginBehaviors : Behavior<EntryUnderlineControl>
     {
         public static readonly BindableProperty  IsRequiredProperty=
                 BindableProperty.Create(
                    propertyName: "IsRequired",
-                   returnType: typeof(String),
+                   returnType: typeof(bool),
                    declaringType: typeof(EntryUnderlineControl),
                    defaultValue: false);
         public bool IsRequired
@@ -20,7 +20,28 @@ namespace AZEM.Behaviors
             get { return (bool)GetValue(IsRequiredProperty); }
             set { SetValue(IsRequiredProperty, value); }
         }
-
+        public static readonly BindableProperty IsPasswordProperty=
+                BindableProperty.Create(
+                    propertyName: "IsPassword",
+                    returnType: typeof(bool),
+                    declaringType: typeof(EntryUnderlineControl),
+                    defaultValue: false);
+        public bool IsPassword
+        {
+            get { return (bool)GetValue(IsPasswordProperty); }
+            set { SetValue(IsPasswordProperty, value); }
+        }
+        public static readonly BindableProperty IsEmailProperty =
+                BindableProperty.Create(
+                    propertyName: "IsEmail",
+                    returnType: typeof(bool),
+                    declaringType: typeof(EntryUnderlineControl),
+                    defaultValue: false);
+        public bool IsEmail
+        {
+            get { return (bool)GetValue(IsEmailProperty); }
+            set { SetValue(IsEmailProperty, value); }
+        }
         public static readonly BindableProperty RegexProperty =
                 BindableProperty.Create(
                     propertyName: "RegexString",
@@ -45,16 +66,16 @@ namespace AZEM.Behaviors
             set { SetValue(ErrorMessageProperty, value); }
         }
 
-        public static readonly BindableProperty IsValidProperty =
+        public static readonly BindableProperty IsNotValidProperty =
                 BindableProperty.Create(
-                    propertyName: "IsValid",
+                    propertyName: "IsNotValid",
                     returnType: typeof(bool),
                     declaringType: typeof(EntryUnderlineControl),
-                    defaultValue: true);
-        public bool IsValid
+                    defaultValue: false);
+        public bool IsNotValid
         {
-            get { return (bool)GetValue(IsValidProperty); }
-            set { SetValue(IsValidProperty, value); }
+            get { return (bool)GetValue(IsNotValidProperty); }
+            set { SetValue(IsNotValidProperty, value); }
         }
 
         public static readonly BindableProperty OnFocusColorProperty =
@@ -62,7 +83,7 @@ namespace AZEM.Behaviors
                     propertyName: "OnFocusColor",
                     returnType: typeof(Color),
                     declaringType: typeof(EntryUnderlineControl),
-                    defaultValue: null);
+                    defaultValue: Color.Default);
         public Color OnFocusColor
         {
             get { return (Color)GetValue(OnFocusColorProperty); }
@@ -72,32 +93,50 @@ namespace AZEM.Behaviors
         void HandleOnFocus(object sender, FocusEventArgs e)
         {
             var entry = sender as EntryUnderlineControl;
+            entry.HasError = false;
             if (OnFocusColor != null)
                 entry.EntryColor = OnFocusColor;
-            IsValid = true;
+            IsNotValid = false;
         }
 
-        void HandleUnFocus(object sender, FocusEventArgs e)
+        void HandleUnFocusEmail(object sender, FocusEventArgs e)
         {
             var entry = sender as EntryUnderlineControl;
+            entry.Text = entry.Text.Trim();
             if (OnFocusColor != null)
                 entry.EntryColor = Color.Black;
+            if (String.IsNullOrWhiteSpace(entry.Text))
+            {
+                if(IsEmail)
+                    ErrorMessage = "Email address is required";
+                if (IsPassword)
+                    ErrorMessage = "Password is required";
+                entry.HasError = true;
+                IsNotValid = true;
+                return;
+            }
             if (!String.IsNullOrWhiteSpace(RegexString))
             {
-                IsValid = Regex.IsMatch(entry.Text, RegexString);
+                IsNotValid = !(Regex.IsMatch(entry.Text, RegexString));
+                entry.HasError = IsNotValid;
+                if(IsEmail)
+                    ErrorMessage = "Invalid email address";
+                if (IsPassword)
+                    ErrorMessage = "Invalid password";
             }
         }
 
-        protected override void OnAttachedTo(Entry bindable)
+        protected override void OnAttachedTo(EntryUnderlineControl bindable)
         {
             bindable.Focused += HandleOnFocus;
-            bindable.Unfocused += HandleUnFocus;
+            bindable.Unfocused += HandleUnFocusEmail;
         }
 
-        protected override void OnDetachingFrom(Entry bindable)
+        protected override void OnDetachingFrom(EntryUnderlineControl bindable)
         {
             bindable.Focused -= HandleOnFocus;
-            bindable.Unfocused -= HandleUnFocus;
+            bindable.Unfocused -= HandleUnFocusEmail;
+
         }
     }
 }

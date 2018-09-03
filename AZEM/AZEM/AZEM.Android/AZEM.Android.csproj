@@ -59,6 +59,7 @@
     <PackageReference Include="Xamarin.Android.Support.v7.MediaRouter" Version="27.0.2.1" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="MainActivity.cs" />
     <Compile Include="Renderers\EntryUnderline.Droid.cs" />
     <Compile Include="Renderers\CustomSwitchRenderer.Droid.cs" />
     <Compile Include="Resources\Resource.Designer.cs" />
