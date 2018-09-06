@@ -24,7 +24,6 @@ namespace AZEM.Droid.Renderers
         private EntryUnderlineControl formControl;
         private readonly Ctx context;
 
-
         public EntryUnderline(Ctx ctx) : base(ctx)
         {
             context = ctx;
@@ -51,8 +50,8 @@ namespace AZEM.Droid.Renderers
                     var x = aa.Event.GetX();
                     if (wr < x && aa.Event.Action == Android.Views.MotionEventActions.Down)
                     {
-                        if (formControl.IsPassword
-                            && formControl.PasswordRevealEnabled
+                        if (/*formControl.IsPassword
+                            &&*/ formControl.PasswordRevealEnabled
                             && !string.IsNullOrEmpty(formControl.PasswordRevealIcon)
                             && !string.IsNullOrEmpty(formControl.PasswordHideIcon))
                         {
@@ -153,7 +152,7 @@ namespace AZEM.Droid.Renderers
             var img = fileName.Replace(".png", "");
             var id = GetResourceIdByName(img);
             var drawable = new WeakReference((Drawable)ContextCompat.GetDrawable(context, id));
-            ((Drawable)drawable.Target).SetColorFilter(formControl.EntryColor.ToAndroid(), Graphics.PorterDuff.Mode.SrcAtop);
+            ((Drawable)drawable.Target).SetColorFilter(Color.FromHex("#2EB2FF").ToAndroid(), Graphics.PorterDuff.Mode.SrcAtop);
             return drawable;
         }
 

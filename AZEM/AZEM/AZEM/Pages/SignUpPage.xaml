@@ -1,0 +1,89 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage NavigationPage.HasNavigationBar="False"
+             xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:behaviors="clr-namespace:AZEM.Behaviors"
+             xmlns:control="clr-namespace:AZEM.Controls"
+             x:Class="AZEM.Pages.SignUpPage">
+    <ScrollView>
+        <StackLayout
+            BackgroundColor="White">
+            <Image
+                Source="azem_lotus.png"
+                Aspect="AspectFit"
+                Margin="10"
+                HeightRequest="300"
+                WidthRequest="200"/>
+            
+            <control:EntryUnderlineControl x:Name="FirstName"
+                AutomationId="FirstNameEntry"
+                EntryColor="Black"
+                Placeholder="First name"
+                BackgroundColor="White"
+                VerticalOptions="CenterAndExpand"
+                PlaceholderColor="Gray"
+                Text="{Binding SignUpUser.FirstName}"
+                FontSize="14"
+                TextColor="Black"
+                Margin="10,5,10,5">
+                <control:EntryUnderlineControl.Behaviors>
+                    <behaviors:LoginBehaviors x:Name="FirstNameBehavior"
+                        OnFocusColor="LightBlue"
+                        ErrorMessage="First name is required"
+                        IsRequired="True"/>
+                </control:EntryUnderlineControl.Behaviors>
+            </control:EntryUnderlineControl>
+            <Label
+                Text="{Binding Source={x:Reference FirstNameBehavior}, Path=ErrorMessage}"
+                IsVisible="{Binding Source={x:Reference FirstNameBehavior}, Path=IsNotValid}"
+                Margin="20,-20,10,0"
+                FontSize="10"
+                TextColor="Red"/>
+
+            <control:EntryUnderlineControl x:Name="LastName"
+                AutomationId="LastNameEntry"
+                Margin="10,5,10,5"
+                TextColor="Black"
+                FontSize="14"
+                Text="{Binding SignUpUser.LastName}"
+                PlaceholderColor="Gray"
+                BackgroundColor="White"
+                Placeholder="Last name"
+                EntryColor="Black">
+                <control:EntryUnderlineControl.Behaviors>
+                    <behaviors:LoginBehaviors x:Name="LastNameBehavior"
+                        OnFocusColor="LightBlue"
+                        ErrorMessage="Last Name is Required"
+                        IsRequired="True"/>
+                </control:EntryUnderlineControl.Behaviors>
+            </control:EntryUnderlineControl>
+            <Label
+                Text="{Binding Source={x:Reference LastNameBehavior}, Path=ErrorMessage}"
+                IsVisible="{Binding Source={x:Reference LastNameBehavior}, Path=IsNotValid}"
+                Margin="20,-20,10,0"
+                FontSize="10"
+                TextColor="Red"/>
+            
+            <Button x:Name="ReturnButton"
+                Text="Never mind"
+                BackgroundColor="White"
+                TextColor="LightBlue"
+                CornerRadius="2"
+                BorderColor="LightBlue"
+                BorderWidth="2"
+                Margin="10,25,10,0"
+                Command="{Binding ReturnCommand}"
+                WidthRequest="20"
+                HeightRequest="40"/>
+            
+            <Button x:Name="NextButton"
+                Text="Next"
+                BackgroundColor="LightBlue"
+                TextColor="White"
+                Margin="10,5,10,20"
+                Command="{Binding NextCommand}"
+                HeightRequest="42"
+                CornerRadius="2"/>
+        </StackLayout>
+    </ScrollView>
+</ContentPage>

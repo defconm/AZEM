@@ -1,4 +1,5 @@
-﻿using System;
+﻿using AZEM.Controls;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Text;
@@ -14,6 +15,13 @@ namespace AZEM.AppStyles
         #endregion
         private static readonly String font = "Roboto.ttf";
         #region styles
+        //public static readonly Style LightBlueButton(typeof(Button))
+        //{
+        //    new Setter { Property = Button.BackgroundColorProperty, Value = lightBlue };
+        //    new Setter { Property = Button.BorderRadiusProperty, Value = 2 };
+        //    new Setter { Property = Button.TextColorProperty, Value = Color.White };
+        //}
+
         #endregion
     }
 }

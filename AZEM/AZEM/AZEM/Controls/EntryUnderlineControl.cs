@@ -121,7 +121,7 @@ namespace AZEM.Controls
             BindableProperty.Create("PasswordRevealIcon",
                             typeof(string),
                             typeof(EntryUnderlineControl),
-                            null);
+                            "eye.png");
 
         public string PasswordRevealIcon
         {
@@ -133,7 +133,7 @@ namespace AZEM.Controls
             BindableProperty.Create("PasswordHideIcon",
                     typeof(string),
                     typeof(EntryUnderlineControl),
-                    null);
+                    "eyeSlashed.png");
 
         public string PasswordHideIcon
         {

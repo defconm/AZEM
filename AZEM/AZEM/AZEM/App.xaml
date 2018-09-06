@@ -3,6 +3,25 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="AZEM.App">
 	<Application.Resources>
-    
+            <Style x:Key="Blue Button" TargetType ="Button">
+                <Setter Property="TextColor" Value="White"/>
+                <Setter Property="BackgroundColor" Value="#2EB2FF"/>
+                <Setter Property="CornerRadius" Value="2"/>
+                <Setter Property="HeightRequest" Value="40"/>
+                <Style.Triggers>
+                    <Trigger TargetType ="Button" Property="IsEnabled" Value="False">
+                        <Setter Property="TextColor" Value="Gray"/>
+                        <Setter Property="BackgroundColor" Value="LightBlue"/>
+                    </Trigger>
+                </Style.Triggers>
+            </Style>
+            <Style x:Key="White Button" TargetType ="Button">
+                <Setter Property="BackgroundColor" Value="White"/>
+                <Setter Property="TextColor" Value="#2EB2FF"/>
+                <Setter Property="CornerRadius" Value="2"/>
+                <Setter Property="BorderColor" Value="#2EB2FF"/>
+                <Setter Property="BorderWidth" Value="2"/>
+                <Setter Property="HeightRequest" Value="40"/>
+            </Style>
 	</Application.Resources>
 </Application>

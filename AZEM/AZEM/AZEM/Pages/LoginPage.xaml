@@ -1,63 +1,70 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
-<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+<ContentPage NavigationPage.HasNavigationBar="False" 
+             xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             xmlns:Behaviors="clr-namespace:AZEM.Behaviors"
-             xmlns:Control="clr-namespace:AZEM.Controls"
-             x:Class="AZEM.LoginPage">
-<!--get the assembly reference correct so that the entry underline will properly render-->
+             xmlns:behaviors="clr-namespace:AZEM.Behaviors"
+             xmlns:styles="clr-namespace:AZEM.AppStyles"
+             xmlns:control="clr-namespace:AZEM.Controls"
+             x:Class="AZEM.Pages.LoginPage">
     <ScrollView>
         <StackLayout
         BackgroundColor="White">
-            <!-- Place new controls here -->
             <Image Source="azem_lotus.png"
                 Aspect="AspectFit"
                 Margin="10"
                 HeightRequest="300"
                 WidthRequest="200"/>
 
-            <Control:EntryUnderlineControl x:Name="EmailEntry"
+            <control:EntryUnderlineControl x:Name="EmailEntry"
                 AutomationId="EmailEntry"
                 VerticalOptions="EndAndExpand"
                 Placeholder="Email address"
                 BackgroundColor="White"
+                Text="{Binding Path=User.UserName, Mode=OneWayToSource}"
                 PlaceholderColor="Gray"
+                HasError="{Binding Path=EmailNotValid, Mode=OneWayToSource}"
                 FontSize="14"
-                Margin="10"
+                Margin="10,10,10,10"
                 TextColor="Black">
-                <Control:EntryUnderlineControl.Behaviors>
-                    <Behaviors:LoginBehaviors x:Name="LoginBehavior"
+                <control:EntryUnderlineControl.Behaviors>
+                    <behaviors:LoginBehaviors x:Name="LoginBehavior"
                         OnFocusColor="LightBlue"
                         IsRequired="True"
                         IsEmail="True"                     
                         RegexString="^([\w-\.]+)@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.)|(([\w-]+\.)+))([a-zA-Z]{2,4}|[0-9]{1,3})(\]?)$"
                         ErrorMessage="Email address"/>
-                </Control:EntryUnderlineControl.Behaviors>
-            </Control:EntryUnderlineControl>
+                </control:EntryUnderlineControl.Behaviors>
+            </control:EntryUnderlineControl>
 
             <Label
                 TextColor="Red"
-                Margin="20,-20,10, 0"
+                Margin="20,-20,10, 5/"
                 FontSize="10"
                 Text= "{Binding Source={x:Reference LoginBehavior},Path=ErrorMessage}"
                 IsVisible="{Binding Source={x:Reference LoginBehavior}, Path=IsNotValid}"/>
 
-            <Control:EntryUnderlineControl x:Name="PasswordEntry"
+            <control:EntryUnderlineControl x:Name="PasswordEntry"
                 AutomationId="PasswordEntry"
                 Placeholder="Password"
                 BackgroundColor="White"
-                Margin="10,0,10,0"
+                Margin="10,-10,10,0"
                 PlaceholderColor="Gray"
                 FontSize="14"
+                Text="{Binding Path=User.Password}"
                 TextColor="Black"
-                IsPassword="True">
-                <Control:EntryUnderlineControl.Behaviors>
-                    <Behaviors:LoginBehaviors x:Name="PasswordBehavior"
+                HasError="{Binding Path=PasswordNotValid, Mode=OneWayToSource}"
+                IsPassword="True"      
+                PasswordRevealIcon="eye.png"
+                PasswordRevealEnabled="True"
+                PasswordHideIcon="eyeslashed.png">
+                <control:EntryUnderlineControl.Behaviors>
+                    <behaviors:LoginBehaviors x:Name="PasswordBehavior"
                         OnFocusColor="LightBlue"
                         IsPassword ="True"
                         IsRequired="True"
                         ErrorMessage="Password is required"/>
-                </Control:EntryUnderlineControl.Behaviors>
-            </Control:EntryUnderlineControl>
+                </control:EntryUnderlineControl.Behaviors>
+            </control:EntryUnderlineControl>
             <Label
                 TextColor="Red"
                 Margin="20,-15,10, 0"
@@ -81,7 +88,7 @@
                         Margin="13,10,10,0"
                         FontSize="Default"/>
 
-                <Control:SwitchControl
+                <control:SwitchControl
                     TrueColor="Blue"
                     FalseColor="LightBlue"
                     HorizontalOptions="EndAndExpand"
@@ -89,24 +96,20 @@
                 
             </StackLayout>
             
-            <Button
+            <Button x:Name="LoginButton"
                 Text="Login"
-                BackgroundColor="White"
-                TextColor="LightBlue"
-                BorderRadius="2"
-                BorderColor="LightBlue"
-                BorderWidth="2"
+                Style="{StaticResource 'Blue Button'}"
                 Margin="10,25,10,0"
+                Command="{Binding LoginCommand}"
                 WidthRequest="20"
                 HeightRequest="40"/>
             
-            <Button
+
+            <Button x:Name="SignUpButton"
                 Text="Sign Up"
-                BackgroundColor="LightBlue"
-                TextColor="White"
+                Style="{StaticResource 'White Button'}"
                 Margin="10,5,10,20"
-                HeightRequest="42"
-                BorderRadius="2"/>
+                Command="{Binding SignUpButtonCommand}"/>
            
         </StackLayout>
         

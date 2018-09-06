@@ -1,0 +1,67 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage 
+             NavigationPage.HasNavigationBar="False"
+             xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:Behaviors="clr-namespace:AZEM.Behaviors"
+             xmlns:Control="clr-namespace:AZEM.Controls"
+             x:Class="AZEM.Pages.SignUpPartTwoPage">
+    <ScrollView>
+        <StackLayout BackgroundColor="White">
+
+            <Image
+                Source="azem_lotus.png"
+                Aspect="AspectFit"
+                Margin="10"
+                HeightRequest="300"
+                WidthRequest="200"/>
+
+            <Control:EntryUnderlineControl x:Name="Email"
+                AutomationId="Email"
+                Margin="10,5,10,5"
+                Placeholder="Email address"
+                PlaceholderColor="Gray"
+                Text="{Binding SignupUser.Email}"
+                FontSize="14"
+                TextColor="Black">
+                <Control:EntryUnderlineControl.Behaviors>
+                    <Behaviors:LoginBehaviors x:Name="LoginBehavior"
+                        OnFocusColor="LightBlue"
+                        IsRequired="True"
+                        IsEmail="True"                     
+                        RegexString="^([\w-\.]+)@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.)|(([\w-]+\.)+))([a-zA-Z]{2,4}|[0-9]{1,3})(\]?)$"
+                        ErrorMessage="Email address"/>
+                </Control:EntryUnderlineControl.Behaviors>
+            </Control:EntryUnderlineControl>
+            <Label
+                Text="{Binding Source={x:Reference LoginBehavior}, Path=ErrorMessage}"
+                IsVisible="{Binding Source={x:Reference LoginBehavior}, Path=IsNotValid}"
+                TextColor="Red"
+                Margin="20,-20,10,0"
+                FontSize="10"/>
+
+            <Control:EntryUnderlineControl x:Name="Password"
+                TextColor="Black"
+                FontSize="14"
+                PlaceholderColor="Gray"
+                Placeholder="Password"
+                Text="{Binding SignUpUser.Password}"
+                Margin="10,5,10,5"
+                IsPassword="True"
+                AutomationId="Password">
+                <Control:EntryUnderlineControl.Behaviors>
+                    <Behaviors:LoginBehaviors x:Name="PasswordBehavior"
+                        IsPassword="True"
+                        IsRequired="True"
+                        OnFocusColor="LightBlue"/>
+                </Control:EntryUnderlineControl.Behaviors>
+            </Control:EntryUnderlineControl>
+            <Label
+                TextColor="Red"
+                Margin="20,-20,10, 0"
+                FontSize="10"
+                Text= "{Binding Source={x:Reference PasswordBehavior},Path=ErrorMessage}"
+                IsVisible="{Binding Source={x:Reference PasswordBehavior}, Path=IsNotValid}"/>
+        </StackLayout>
+    </ScrollView>
+</ContentPage>
